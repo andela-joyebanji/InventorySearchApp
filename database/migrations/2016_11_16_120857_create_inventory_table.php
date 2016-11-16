@@ -13,11 +13,12 @@ class CreateInventoryTable extends Migration
      */
     public function up()
     {
-        Schema::table('inventory', function (Blueprint $table) {
+        Schema::create('inventories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->decimal('price', 10, 2);
             $table->integer('category_id');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateInventoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('inventory');
+        Schema::drop('inventories');
     }
 }
