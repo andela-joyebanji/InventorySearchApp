@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SearchAppTest extends TestCase
 {
+    use DatabaseTransactions;
     /**
      * Test that the page loads the correctly
      *
@@ -20,29 +21,16 @@ class SearchAppTest extends TestCase
 
     public function testSearchForNameReturnsCorrectResult()
     {
-        $this->json('GET', '/api/search/name/Jacob')
-             ->seeJsonEquals([
-                 [
-                    'name' => "Jacob",
-                    'price' => 200
-                 ]
-             ]);
+        $inventory = factory(App\Inventory::class)->create();
+        $response = $this->call('GET', '/api/search/name/'.$inventory->name);
+
+        $this->assertContains($inventory->name, $response->getContent());
     }
 
     public function testSearchForNameReturnsEmptyResultForUnMatchSearch()
     {
         $this->json('GET', '/api/search/name/Mayowa')
-             ->seeJsonEquals([[]]);
+             ->seeJsonEquals([]);
     }
 
 }
-
-
-
-
-// Get  - /search
-// 		— categoryID
-// 		—— name
-//         -- FilterBy - name, price, categ
-// 		— Orderby - name, price, category, default
-
