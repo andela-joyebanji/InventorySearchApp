@@ -15,13 +15,4 @@ Route::get('/', function () {
     return view('search');
 });
 
-// /api/search/name/jacob/name/price
-
-Route::get('/api/search/{type}/{typeValue}/{OrderBy?}/{filterBy?}', function () {
-    return response()->json([[
-            'name' => "Jacob",
-            'price' => 200
-    ]]);
-});
-
 

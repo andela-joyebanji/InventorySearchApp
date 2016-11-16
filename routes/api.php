@@ -19,3 +19,10 @@ use Illuminate\Http\Request;
 //             'price' => 200
 //         ]]);
 // })->middleware('auth:api');
+
+Route::get('/search/{type}/{typeValue}/{OrderBy?}/{filterBy?}', function () {
+    return response()->json([[
+            'name' => "Jacob",
+            'price' => 200
+    ]]);
+})->middleware('api');
