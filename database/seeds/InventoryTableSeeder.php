@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Category;
+use App\Inventory;
 
 class InventoryTableSeeder extends Seeder
 {
@@ -11,9 +13,18 @@ class InventoryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('invertory')->insert([
-            'name' => 'Jacob',
-            'price' => 200,
+        $phpCategory = Category::where('name', '=', 'PHP')->first();
+        Inventory::create([
+                'name' => 'Jacob',
+                'price' => 200,
+                'category_id' => $phpCategory->id
+        ]);
+
+        $laravelCategory = Category::where('name', '=', 'Laravel')->first();
+        Inventory::create([
+                'name' => 'Oyebanji',
+                'price' => 200.5,
+                'category_id' => $laravelCategory->id
         ]);
 
     }
