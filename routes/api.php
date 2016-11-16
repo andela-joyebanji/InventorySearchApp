@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Inventory;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +14,8 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('api/search', function (Request $request) {
-//     return response()->json([[
-//             'name' => "Jacob",
-//             'price' => 200
-//         ]]);
-// })->middleware('auth:api');
+Route::get('/search/{type}/{typeValue}/{OrderBy?}/{filterBy?}', function ($type, $typeValue, $OrderBy = 'name', $filterBy = 'none') {
 
-Route::get('/search/{type}/{typeValue}/{OrderBy?}/{filterBy?}', function () {
-    return response()->json([[
-            'name' => "Jacob",
-            'price' => 200
-    ]]);
+    $inventory = Inventory::search($type, $typeValue, $OrderBy, $filterBy)->get();
+    return response()->json($inventory);
 })->middleware('api');
